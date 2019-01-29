@@ -1,0 +1,50 @@
+*********************************************************
+TIE-02200 Ohjelmoinnin perusteet, kevät 2018
+Malin Kraft, malin.kraft@tut.fi, opiskelijanumero: 232063
+Projekti 4, korttipeli - pasianssi
+*********************************************************
+
+* Tämän pasianssin on toteuttanut Malin Kraft kurssia 
+TIE-02200 Ohjelmoinnin perusteet - kurssia varten. 
+* Tätä tehtävää varten oli annettu valmis koodipohja.
+* Tämä on tavallinen pasianssi, jossa pätee tavallisen 
+pasianssin säännöt. Tämä tiedosto ei sen kummemmin käy 
+sääntöjä läpi, vaan yrittää osaltaan selittää ratkaisuja.
+
+---------------------------------------------------------
+
+Rakenne:
+* Ylärivillä ensimmäinen slot on pakan paikka
+* toinen slot on pakasta nostettaville korteille
+* seuraavat neljä ovat CardSlotteja johon tulee siirtää
+  kaikki maat nousevassa järjestyksessä 1 -> 13. Slotit
+  ovat järjestykssä risti - ruutu - hertta - pata.
+* Alarivillä on seitsemän CardSlottia joihin jaetaan 
+  valmiiksi pasianssia varten oikea määrä kortteja 
+  väärinpäin sekä ylimmäinen kortti avattuna.
+* Alarivillä pätee pasianssin säännöt, eli tyhjään 
+  kohtaan voi lisätä minkä maan 13 ja muuten kortteja 
+  voi siirtää vain kuten pasianssissa muuten.
+
+--------------------------------------------------------
+
+TODO:   (ehtimisen mukaan)
+- Lisää "Uusi peli" - nappula joka alustaa uuden pelin
+  => Tätä yritin pitkään, mutta minulla oli ongelma 
+   saada CardSlotit tyhjiksi, joten luovutin...
+- Lisää peliin voittoilmoitus jos peli menee läpi
+- Lisää pelin eri vaikeusasteita
+- Lisää peliin Lopetus nappi
+  => TEHTY
+
+--------------------------------------------------------
+
+VIRHEET:
+- Nyt pystyy yläslotteiin lisätä useampi kortti (myös 
+  vääriä maita) mikäli alin kortti on oikea
+  => näin ei saisi olla 
+=> KORJATTU!!!
+
+- Alempien cardslottien suljetut kortit pystyy avaamaan
+  vaikka niiden päällä olisi kortteja
+=> KORJATTU!!!

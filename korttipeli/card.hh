@@ -1,0 +1,83 @@
+/********************************************************************
+ * TIE-02200 Ohjelmoinnin peruskurssi, K2018                        *
+ * Projekti 4: Korttipeli, pasianssi                                *
+ * Nimi: Malin Kraft, opiskelijanumero: 232063                      *
+ *                                                                  *
+ * Tiedosto: card.hh                                                *
+ * Kuvaus: Yhden kortin luokkamäärittely. Sisältää yhden kortin     *
+ *         eri toimintoja                                           *
+ * Kommentit:                                                       *
+ *                                                                  *
+ *                                                                  *
+ ********************************************************************
+ */
+
+
+#ifndef CARD_HH
+#define CARD_HH
+
+#include <QLabel>
+#include <QFrame>
+
+enum CardSuit {SPADE, CLUB, DIAMOND, HEART, SUIT_COUNT};
+
+class Card : public QFrame {
+    Q_OBJECT
+
+public:
+    Card(CardSuit suit, unsigned value, QWidget *parent = 0);
+
+    // Kortin sisäisen tilan tarkastelemiseen ja muokkaamiseen.
+    bool isOpen();
+    void allowOpen();
+
+    // Kortin päällä olevien korttien käsittelemiseen.
+    void stackCard(Card* card, bool hide = false);
+    void removeStackedCards();
+
+    // Palauttaa kortin tiedot (arvo, maa, onko auki) merkkijonona. Tarvitaan
+    // kortin raahaamisessa.
+    std::string getCardData();
+
+    // Kun korttia raahataan, raahaus-event tarvitsee kuvan, jota näytetään.
+    // Sen saa haettua tällä metodilla.
+    QLabel* getCurrentSideLabel();
+
+signals:
+    // Kun kortin päälle (tai sen päällä olevien korttien päällä olevien
+    // korttien päälle) lisätään kortti, tarvii piirrettävän widgetin kokoa
+    // kasvattaa.
+    void resized();
+
+public slots:
+    // Lisää toimenpiteitä, joita kortille voidaan suorittaa.
+    void turn();
+    void expand();
+
+protected:
+    // Itse toteutettu Qt:n widgetin klikkaamiseen liittyvä metodi.
+    void mouseDoubleClickEvent(QMouseEvent* event);
+
+private:
+    // Apumetodeita muiden metodien käyttöön.
+    void setupLayout();
+    void setSuitPixmap();
+    void setupBack();
+    void setupFront();
+
+    // Korttiwidgetin sisäinen tila.
+    CardSuit suit_;  // Kertoo kortin maan
+    unsigned value_;  // Kertoo kortin arvon
+    bool open_;  // Kertoo onko kortti auki vai kiinni
+    bool canOpen_;  // Kertoo voiko korttia aukasta.
+
+    // Kuvat joita tarvitaan, kun korttia piirretään setupBack- ja
+    // setupFront-metodeissa.
+    QPixmap suitPixmap_;
+    QPixmap backPixmap_;
+
+    // Osoitin kortin päällä mahdollisesti olevaan korttiin.
+    Card* stackedCard_;
+};
+
+#endif // CARD_HH
